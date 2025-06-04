@@ -1,0 +1,65 @@
+# Sucia NYC Check-in — MVP PRD (v1.4)
+
+## 1. 🧭 Purpose
+Deliver a single-page, responsive web app that lets staff select any Sucia NYC event **(mock data only)** and check guests in with one tap. No install, no real-time sync.
+
+## 2. 🌐 Platforms & Tech Notes
+| Target | Notes |
+|--------|-------|
+| **Browsers** | Chrome ≥ 115, Safari ≥ 16, Edge ≥ 115 |
+| **Devices** | iPhone 12 +, iPad 10” +, 13”+ laptops (tested) |
+| **Stack** | React + Vite build, TailwindCSS for layout |
+| **State** | In-memory + `localStorage` fallback for offline Wi-Fi moments |
+| **Data shape** | `Event { id, title, date, guestList[] }`, `Guest { id, name, checkedIn:boolean }` |
+
+## 3. 🎯 MVP Goals
+1. **One flow** for all event types (Meetup, Sucia Read, etc.).
+2. **<3 sec load** on 4G connection.
+3. Staff can complete check-in in **≤ 10 seconds** per guest (search + tap).
+
+## 4. 👥 User Stories & Acceptance Criteria
+| ID | Story | Acceptance (must pass on all target devices) |
+|----|-------|----------------------------------------------|
+| US1 | *Open app without download.* | App URL loads ≤ 3 sec; no install prompts shown. |
+| US2 | *Select mock event.* | List displays ≥ 2 events; tapping navigates to guest list. |
+| US3 | *View guest list.* | Guest table shows 10–20 names, alphabetized by default. |
+| US4 | *Search guest.* | Typing 3+ chars filters list in ≤ 200 ms. |
+| US5 | *Check in guest.* | Tap toggles status, row turns green, counter increments. |
+| US6 | *See check-in counter.* | Header shows “X / Y checked in” and updates in real-time. |
+| US7 | *Reset demo.* | Hidden `/admin` route clears all `checkedIn` flags and counter. |
+
+## 5. 🔨 Feature Set
+1. **Event Picker** – card list with date badge.
+2. **Guest List View** – responsive table/list with sticky search bar.
+3. **Live Search** – debounce 150 ms.
+4. **One-Tap Check-in** – large hit-area; ARIA live region announces success for a11y.
+5. **Counter Widget** – persists via `localStorage`.
+6. **Reset Demo Button** – only visible on `/admin` (no auth).
+7. **Responsive Layout** – Tailwind breakpoints (`sm md lg xl`).
+8. **Offline Grace** – if `navigator.onLine === false`, UI shows “Offline; changes will sync when online” (for future proofing).
+
+## 6. ⛑️ Non-Functional
+- **Performance:** Lighthouse score ≥ 90 mobile.
+- **Accessibility:** WCAG 2.2 AA for color contrast & keyboard nav.
+- **Security:** No PII stored; code linted for common XSS.
+- **Maintainability:** All components typed with TS & 80% Jest coverage.
+
+## 7. 📊 Success Metrics
+| Metric | Target |
+|--------|--------|
+| Device coverage | 100% pass on 3 device classes |
+| Task success | 5/5 test users complete US2–US5 unaided |
+| Error rate | 0 blocking bugs during 30-min smoke test |
+| Load time | ≤ 3 sec on 4G (WebPageTest—average of 3 runs) |
+
+## 8. 🚫 Out of Scope
+Same as v1.3.2 plus:  
+- No offline-first data sync beyond local demo caching  
+- No user authentication  
+- No analytics tags
+
+## 9. 🔮 Post-MVP Questions
+1. Which data source first: Google Sheets vs. ForbiddenTickets API?  
+2. Role-based access: is “Door vs. Admin” enough?  
+3. Do we need badge printing on site?  
+4. Should we expose a guest search kiosk for self-check-in?

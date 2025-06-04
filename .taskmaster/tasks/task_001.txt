@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Setup Project Repository and Build Configuration
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Initialize React + Vite project with TypeScript, TailwindCSS, and Jest testing framework
+# Details:
+Create new Vite project with React-TS template: `npm create vite@latest sucia-checkin -- --template react-ts`. Install dependencies: TailwindCSS (`npm install -D tailwindcss postcss autoprefixer`), Jest and testing utilities (`npm install -D jest @testing-library/react @testing-library/jest-dom @testing-library/user-event`). Configure tailwind.config.js with responsive breakpoints (sm, md, lg, xl). Setup Jest configuration for TypeScript and React components. Create basic folder structure: /src/components, /src/types, /src/utils, /src/data.
+
+# Test Strategy:
+Verify project builds successfully with `npm run build`, runs dev server with `npm run dev`, and Jest tests execute with `npm test`. Confirm TailwindCSS classes are processed correctly.

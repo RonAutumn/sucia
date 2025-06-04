@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: Add Offline Detection and User Feedback
+# Status: in-progress
+# Dependencies: 10
+# Priority: low
+# Description: Implement offline detection with user feedback for future-proofing
+# Details:
+Create custom hook useOnlineStatus using navigator.onLine and online/offline event listeners. Display offline banner when navigator.onLine === false: 'Offline; changes will sync when online'. Style banner with warning colors and sticky positioning. Hide banner when back online. Ensure check-in functionality continues to work offline using localStorage. Add network status indicator in header.
+
+# Test Strategy:
+Test offline detection by disabling network connection. Verify banner appears/disappears correctly. Test check-in functionality works offline. Validate localStorage maintains data during offline periods.

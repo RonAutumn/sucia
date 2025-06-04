@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Implement React Router and Basic App Structure
+# Status: done
+# Dependencies: 2
+# Priority: high
+# Description: Setup routing for event selection, guest list view, and admin reset functionality
+# Details:
+Install React Router: `npm install react-router-dom @types/react-router-dom`. Create App.tsx with BrowserRouter containing routes: '/' (EventPicker), '/event/:id' (GuestList), '/admin' (AdminReset). Create basic component shells: EventPicker.tsx, GuestList.tsx, AdminReset.tsx. Implement navigation between routes using useNavigate hook.
+
+# Test Strategy:
+Test routing functionality - verify navigation between all routes works correctly. Test URL parameters are passed properly to GuestList component. Confirm /admin route is accessible but not linked from main navigation.

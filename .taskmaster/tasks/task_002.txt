@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: Define TypeScript Interfaces and Mock Data
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Create TypeScript interfaces for Event and Guest entities and generate mock data
+# Details:
+Create /src/types/index.ts with interfaces: `Event { id: string, title: string, date: string, guestList: Guest[] }` and `Guest { id: string, name: string, checkedIn: boolean }`. Create /src/data/mockData.ts with 2+ events (Meetup, Sucia Read) containing 10-20 guests each. Ensure guest names are diverse and alphabetically sortable. Include realistic event dates and titles.
+
+# Test Strategy:
+Write unit tests to validate mock data structure matches TypeScript interfaces. Test that guest lists contain 10-20 entries and are properly typed.

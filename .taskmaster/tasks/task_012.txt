@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Performance Optimization and Testing
+# Status: pending
+# Dependencies: 11
+# Priority: medium
+# Description: Optimize bundle size, implement lazy loading, and ensure performance targets are met
+# Details:
+Implement React.lazy() for route-based code splitting. Optimize bundle size using Vite build analysis. Add React.memo() for expensive components. Implement virtual scrolling if guest lists exceed 50+ items. Configure Vite for optimal production builds. Add service worker for caching static assets. Ensure Lighthouse score ≥90 mobile. Test load time ≤3 seconds on 4G using WebPageTest.
+
+# Test Strategy:
+Run Lighthouse audits on mobile and desktop. Test load times on throttled 4G connection. Verify code splitting reduces initial bundle size. Test with large guest lists (100+ guests) for performance. Validate 80% Jest test coverage requirement.

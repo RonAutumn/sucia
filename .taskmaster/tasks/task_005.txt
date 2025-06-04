@@ -1,0 +1,73 @@
+# Task ID: 5
+# Title: Implement Guest List View with Responsive Table
+# Status: done
+# Dependencies: 4
+# Priority: medium
+# Description: Create guest list component with responsive table/list layout and alphabetical sorting
+# Details:
+✅ COMPLETED: GuestList component fully implemented with responsive table/list layout, URL parameter handling, alphabetical sorting, check-in status indicators, search functionality, and comprehensive accessibility features. Component includes desktop table view (lg+), mobile card view, interactive check-in/check-out functionality with localStorage persistence, search with debouncing, check-in statistics, and proper error handling for invalid event IDs. All features implemented using TailwindCSS for responsive design.
+
+# Test Strategy:
+✅ COMPLETED: Comprehensive test suite with 20 passing tests covering responsive layout switching, alphabetical sorting, navigation, check-in functionality, search features, accessibility, and error handling scenarios. All test cases validate correct behavior across different screen sizes and event configurations.
+
+# Subtasks:
+## 5.1. Create GuestList component structure [completed]
+### Dependencies: None
+### Description: Set up basic GuestList component with URL parameter handling
+### Details:
+
+
+## 5.2. Implement responsive table/card layout [completed]
+### Dependencies: None
+### Description: Create responsive design with table view for desktop (lg+) and card view for mobile/tablet
+### Details:
+
+
+## 5.3. Add alphabetical sorting functionality [completed]
+### Dependencies: None
+### Description: Implement guest sorting by name using Array.sort() and localeCompare
+### Details:
+
+
+## 5.4. Implement check-in status indicators [completed]
+### Dependencies: None
+### Description: Add visual indicators for check-in status with green/yellow badges
+### Details:
+
+
+## 5.5. Add interactive check-in functionality [completed]
+### Dependencies: None
+### Description: Implement check-in/check-out buttons with localStorage persistence
+### Details:
+
+
+## 5.6. Implement search functionality [completed]
+### Dependencies: None
+### Description: Add guest search with debouncing and 3+ character minimum
+### Details:
+
+
+## 5.7. Add check-in statistics and counter [completed]
+### Dependencies: None
+### Description: Implement check-in counter with percentage calculation and progress indicator
+### Details:
+
+
+## 5.8. Implement error handling and navigation [completed]
+### Dependencies: None
+### Description: Add error handling for invalid event IDs and back navigation to event picker
+### Details:
+
+
+## 5.9. Add accessibility features [completed]
+### Dependencies: None
+### Description: Implement proper ARIA labels, descriptions, and accessibility support
+### Details:
+
+
+## 5.10. Create comprehensive test suite [completed]
+### Dependencies: None
+### Description: Develop and execute 20 test cases covering all functionality and edge cases
+### Details:
+
+

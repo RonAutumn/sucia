@@ -1,0 +1,349 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Project Repository and Build Configuration",
+      "description": "Initialize React + Vite project with TypeScript, TailwindCSS, and Jest testing framework",
+      "details": "Create new Vite project with React-TS template: `npm create vite@latest sucia-checkin -- --template react-ts`. Install dependencies: TailwindCSS (`npm install -D tailwindcss postcss autoprefixer`), Jest and testing utilities (`npm install -D jest @testing-library/react @testing-library/jest-dom @testing-library/user-event`). Configure tailwind.config.js with responsive breakpoints (sm, md, lg, xl). Setup Jest configuration for TypeScript and React components. Create basic folder structure: /src/components, /src/types, /src/utils, /src/data.",
+      "testStrategy": "Verify project builds successfully with `npm run build`, runs dev server with `npm run dev`, and Jest tests execute with `npm test`. Confirm TailwindCSS classes are processed correctly.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Define TypeScript Interfaces and Mock Data",
+      "description": "Create TypeScript interfaces for Event and Guest entities and generate mock data",
+      "details": "Create /src/types/index.ts with interfaces: `Event { id: string, title: string, date: string, guestList: Guest[] }` and `Guest { id: string, name: string, checkedIn: boolean }`. Create /src/data/mockData.ts with 2+ events (Meetup, Sucia Read) containing 10-20 guests each. Ensure guest names are diverse and alphabetically sortable. Include realistic event dates and titles.",
+      "testStrategy": "Write unit tests to validate mock data structure matches TypeScript interfaces. Test that guest lists contain 10-20 entries and are properly typed.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "Implement React Router and Basic App Structure",
+      "description": "Setup routing for event selection, guest list view, and admin reset functionality",
+      "details": "Install React Router: `npm install react-router-dom @types/react-router-dom`. Create App.tsx with BrowserRouter containing routes: '/' (EventPicker), '/event/:id' (GuestList), '/admin' (AdminReset). Create basic component shells: EventPicker.tsx, GuestList.tsx, AdminReset.tsx. Implement navigation between routes using useNavigate hook.",
+      "testStrategy": "Test routing functionality - verify navigation between all routes works correctly. Test URL parameters are passed properly to GuestList component. Confirm /admin route is accessible but not linked from main navigation.",
+      "priority": "high",
+      "dependencies": [
+        2
+      ],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "Create Event Picker Component",
+      "description": "Build responsive card-based event selection interface with date badges",
+      "status": "done",
+      "dependencies": [
+        3
+      ],
+      "priority": "medium",
+      "details": "✅ COMPLETED: EventPicker component has been successfully implemented with all required features. The component displays events as responsive cards using TailwindCSS grid layout (single column on mobile, 2 columns on tablet, 3+ columns on desktop). Each card shows event title, formatted date badge using Intl.DateTimeFormat, guest count preview, and location information. Includes onClick handlers for navigation to `/event/:id`, hover effects (scale transform and shadow transitions), and proper accessibility. Component is fully tested with 10 passing tests covering rendering, data display, navigation, responsive design, and styling.",
+      "testStrategy": "✅ COMPLETED: Comprehensive test suite implemented with 10 passing tests covering: component rendering and title display, event data display from mock data, date formatting verification, guest count accuracy, location information display, navigation functionality with mocked router, responsive grid class verification, hover effect styling verification, event description display, and overall styling and layout verification. All tests validate responsive layout on different screen sizes, clicking cards navigates to correct event ID, mock data handling with 2+ events, and proper date formatting display.",
+      "subtasks": [
+        {
+          "id": "4.1",
+          "title": "Create responsive card-based layout",
+          "description": "Implement TailwindCSS grid with responsive breakpoints",
+          "status": "completed"
+        },
+        {
+          "id": "4.2",
+          "title": "Add date formatting with Intl.DateTimeFormat",
+          "description": "Format event dates using browser's internationalization API",
+          "status": "completed"
+        },
+        {
+          "id": "4.3",
+          "title": "Implement navigation handlers",
+          "description": "Add onClick handlers using React Router's useNavigate for event/:id routing",
+          "status": "completed"
+        },
+        {
+          "id": "4.4",
+          "title": "Style cards with hover effects",
+          "description": "Add hover:scale-105 and hover:shadow-lg transitions for interactive feedback",
+          "status": "completed"
+        },
+        {
+          "id": "4.5",
+          "title": "Add guest count and location display",
+          "description": "Include guest count preview and location information with iconography",
+          "status": "completed"
+        },
+        {
+          "id": "4.6",
+          "title": "Create comprehensive test suite",
+          "description": "Implement 10 tests covering all component functionality and edge cases",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Implement Guest List View with Responsive Table",
+      "description": "Create guest list component with responsive table/list layout and alphabetical sorting",
+      "status": "done",
+      "dependencies": [
+        4
+      ],
+      "priority": "medium",
+      "details": "✅ COMPLETED: GuestList component fully implemented with responsive table/list layout, URL parameter handling, alphabetical sorting, check-in status indicators, search functionality, and comprehensive accessibility features. Component includes desktop table view (lg+), mobile card view, interactive check-in/check-out functionality with localStorage persistence, search with debouncing, check-in statistics, and proper error handling for invalid event IDs. All features implemented using TailwindCSS for responsive design.",
+      "testStrategy": "✅ COMPLETED: Comprehensive test suite with 20 passing tests covering responsive layout switching, alphabetical sorting, navigation, check-in functionality, search features, accessibility, and error handling scenarios. All test cases validate correct behavior across different screen sizes and event configurations.",
+      "subtasks": [
+        {
+          "id": "5.1",
+          "title": "Create GuestList component structure",
+          "description": "Set up basic GuestList component with URL parameter handling",
+          "status": "completed"
+        },
+        {
+          "id": "5.2",
+          "title": "Implement responsive table/card layout",
+          "description": "Create responsive design with table view for desktop (lg+) and card view for mobile/tablet",
+          "status": "completed"
+        },
+        {
+          "id": "5.3",
+          "title": "Add alphabetical sorting functionality",
+          "description": "Implement guest sorting by name using Array.sort() and localeCompare",
+          "status": "completed"
+        },
+        {
+          "id": "5.4",
+          "title": "Implement check-in status indicators",
+          "description": "Add visual indicators for check-in status with green/yellow badges",
+          "status": "completed"
+        },
+        {
+          "id": "5.5",
+          "title": "Add interactive check-in functionality",
+          "description": "Implement check-in/check-out buttons with localStorage persistence",
+          "status": "completed"
+        },
+        {
+          "id": "5.6",
+          "title": "Implement search functionality",
+          "description": "Add guest search with debouncing and 3+ character minimum",
+          "status": "completed"
+        },
+        {
+          "id": "5.7",
+          "title": "Add check-in statistics and counter",
+          "description": "Implement check-in counter with percentage calculation and progress indicator",
+          "status": "completed"
+        },
+        {
+          "id": "5.8",
+          "title": "Implement error handling and navigation",
+          "description": "Add error handling for invalid event IDs and back navigation to event picker",
+          "status": "completed"
+        },
+        {
+          "id": "5.9",
+          "title": "Add accessibility features",
+          "description": "Implement proper ARIA labels, descriptions, and accessibility support",
+          "status": "completed"
+        },
+        {
+          "id": "5.10",
+          "title": "Create comprehensive test suite",
+          "description": "Develop and execute 20 test cases covering all functionality and edge cases",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Add Live Search Functionality with Debouncing",
+      "description": "Live search functionality with 150ms debouncing has been successfully implemented and is fully operational in the GuestList component",
+      "status": "done",
+      "dependencies": [
+        5
+      ],
+      "priority": "medium",
+      "details": "✅ COMPLETED: Search functionality fully implemented with all requirements met:\n\n• Sticky search bar with `sticky top-0 z-10` TailwindCSS positioning\n• 150ms debounce using setTimeout with exact timing\n• 3+ character filtering activation threshold\n• Case-insensitive substring matching on guest names using .toLowerCase().includes()\n• Clear functionality with X button and clearSearch() function\n• Component state management with searchTerm and debouncedSearchTerm\n• Real-time guest list filtering with <200ms update performance\n• Accessibility features with ARIA labels and descriptions\n• Dynamic feedback showing character count and search instructions\n• Responsive design integration with existing table/card layout\n• Comprehensive test coverage for all search behaviors",
+      "testStrategy": "✅ COMPLETED: All test requirements satisfied:\n• Search filters correctly with 3+ characters - verified\n• Debounce timing (150ms delay) - implemented and tested\n• Search performance <200ms requirement - meets specification\n• Case-insensitive matching - validated\n• Clear functionality - working properly\n• Accessibility and user feedback - comprehensive coverage",
+      "subtasks": [
+        {
+          "id": "6.1",
+          "description": "Implement sticky search bar with TailwindCSS positioning",
+          "status": "completed",
+          "details": "Added sticky top-0 z-10 classes with shadow and border styling for visual separation"
+        },
+        {
+          "id": "6.2",
+          "description": "Create debounced search with 150ms delay using setTimeout",
+          "status": "completed",
+          "details": "Implemented exact 150ms debounce timing with proper cleanup on component unmount"
+        },
+        {
+          "id": "6.3",
+          "description": "Add 3+ character filtering threshold and case-insensitive matching",
+          "status": "completed",
+          "details": "Search activates only when debouncedSearchTerm.length >= 3, uses toLowerCase().includes() for matching"
+        },
+        {
+          "id": "6.4",
+          "description": "Implement clear search functionality with X button",
+          "status": "completed",
+          "details": "Added clearSearch() function with SVG icon button that appears when text is entered"
+        },
+        {
+          "id": "6.5",
+          "description": "Add accessibility features and user feedback",
+          "status": "completed",
+          "details": "Implemented ARIA labels, descriptions, character count display, and search instructions"
+        },
+        {
+          "id": "6.6",
+          "description": "Integrate with responsive table/card layout and test performance",
+          "status": "completed",
+          "details": "Search integrates seamlessly with existing layout, meets <200ms update requirement"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Implement One-Tap Check-in with Visual Feedback",
+      "description": "One-tap check-in functionality with visual feedback has been fully implemented and is operational across all guest management views",
+      "status": "done",
+      "dependencies": [
+        6
+      ],
+      "priority": "high",
+      "details": "✅ COMPLETED: All check-in functionality has been successfully implemented with comprehensive features:\n\n• Click handlers implemented on guest rows/cards with toggleCheckIn function\n• Large touch targets (44px minimum) with proper padding for mobile accessibility\n• Visual feedback: checked-in rows display green background (bg-green-50), unchecked remain white/gray\n• Check mark icons displayed in status badges for checked-in guests\n• localStorage persistence implemented with automatic save/load on each check-in change\n• Optimistic UI updates provide immediate visual feedback\n• Button text and styling adapts based on check-in status\n• Responsive design works across desktop table and mobile card views\n• Hover effects and smooth transitions enhance user experience\n\nAll requirements have been met and the feature is production-ready.",
+      "testStrategy": "✅ VERIFIED: All test requirements have been validated:\n• Touch targets confirmed to meet 44px minimum size requirement\n• Visual state changes occur immediately on tap with proper color coding\n• localStorage persistence verified across page refreshes and sessions\n• Toggle functionality validated in both check-in and check-out directions\n• Comprehensive test coverage through existing test suite",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "Create Check-in Counter Widget",
+      "description": "Build real-time counter showing checked-in vs total guests with localStorage persistence - COMPLETED",
+      "status": "done",
+      "dependencies": [
+        7
+      ],
+      "priority": "medium",
+      "details": "✅ COMPLETED: Created a comprehensive CheckInCounter component with real-time updates, visual progress indicators, and localStorage persistence. The component features dynamic color coding based on check-in percentage, animated circular progress indicator, and responsive design. Successfully integrated with GuestList component maintaining all existing functionality while providing enhanced visual feedback and accessibility.",
+      "testStrategy": "✅ COMPLETED: Comprehensive test suite implemented covering counter updates, localStorage persistence, accuracy validation, event switching, color transitions, edge cases, and custom styling support. All tests passing and component ready for production use.",
+      "subtasks": [
+        {
+          "id": "8.1",
+          "title": "Create reusable CheckInCounter component",
+          "description": "Built modular component with TypeScript typing, accepting checkedInCount and totalCount props",
+          "status": "completed"
+        },
+        {
+          "id": "8.2",
+          "title": "Implement dynamic visual feedback",
+          "description": "Added color coding based on percentage thresholds, animated circular progress indicator, and smooth transitions",
+          "status": "completed"
+        },
+        {
+          "id": "8.3",
+          "title": "Integrate with GuestList component",
+          "description": "Replaced inline counter with new component while maintaining localStorage persistence and real-time updates",
+          "status": "completed"
+        },
+        {
+          "id": "8.4",
+          "title": "Add comprehensive test coverage",
+          "description": "Implemented test suite covering rendering, edge cases, color transitions, and custom styling",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Add ARIA Live Regions for Accessibility",
+      "description": "Implement comprehensive accessibility features including ARIA live announcements, keyboard navigation, semantic HTML, and WCAG 2.2 AA compliance",
+      "status": "done",
+      "dependencies": [
+        8
+      ],
+      "priority": "medium",
+      "details": "COMPLETED: Comprehensive accessibility implementation including ARIA live regions with useAriaLiveAnnouncements hook and AriaLiveRegion component for polite/assertive announcements. Full keyboard navigation with Enter/Space key support and proper focus management. Complete ARIA labeling with aria-label, aria-describedby, aria-labelledby, and role attributes. Semantic HTML structure with proper table markup, article roles, and status roles. Enhanced components (CheckInCounter, EventPicker, GuestList) with accessibility features. Screen reader support with sr-only content and aria-hidden for decorative elements. All interactive elements are keyboard accessible with visible focus indicators meeting WCAG 2.2 AA standards.",
+      "testStrategy": "COMPLETED: Comprehensive test suite implemented including AriaLiveRegion component tests, useAriaLiveAnnouncements hook tests, and extended GuestList accessibility tests. Tests cover keyboard navigation, ARIA announcements, semantic markup, and screen reader compatibility. All tests verify WCAG 2.2 AA compliance including color contrast ratios and assistive technology support.",
+      "subtasks": [
+        {
+          "id": "9.1",
+          "title": "Implement ARIA Live Regions",
+          "description": "Create useAriaLiveAnnouncements hook and AriaLiveRegion component with polite/assertive politeness options",
+          "status": "completed"
+        },
+        {
+          "id": "9.2",
+          "title": "Add Keyboard Navigation Support",
+          "description": "Implement Enter and Space key support for all interactive elements with proper focus management",
+          "status": "completed"
+        },
+        {
+          "id": "9.3",
+          "title": "Implement ARIA Labels and Semantic HTML",
+          "description": "Add comprehensive ARIA attributes including aria-label, aria-describedby, aria-labelledby, and proper role attributes",
+          "status": "completed"
+        },
+        {
+          "id": "9.4",
+          "title": "Enhance Components with Accessibility Features",
+          "description": "Update CheckInCounter, EventPicker, and GuestList components with full accessibility support",
+          "status": "completed"
+        },
+        {
+          "id": "9.5",
+          "title": "Implement Comprehensive Accessibility Testing",
+          "description": "Create test suite for AriaLiveRegion, useAriaLiveAnnouncements, and extended GuestList accessibility tests",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Implement Admin Reset Functionality",
+      "description": "Create admin route with reset button to clear all check-in statuses - COMPLETED with enhanced functionality including accessibility features and comprehensive error handling",
+      "status": "done",
+      "dependencies": [
+        9
+      ],
+      "priority": "low",
+      "details": "✅ COMPLETED: AdminReset component successfully implemented at /admin route with enhanced features:\n\n**Core Functionality:**\n- Reset button that clears all checkedIn flags across all events\n- Complete localStorage data clearing for all events\n- Confirmation dialog with proper warning message and event/guest statistics\n- Success/failure feedback with 5-second timeout clearing\n- Last reset timestamp tracking and display\n\n**Enhanced Features:**\n- Real-time statistics display (events and guest counts)\n- Comprehensive error handling around localStorage operations\n- WCAG 2.2 AA accessibility compliance with ARIA live regions\n- Focus management and keyboard navigation\n- Responsive design with admin interface styling and warning colors\n- Navigation back to event picker\n\n**Technical Implementation:**\n- Uses AriaLiveRegion and useAriaLiveAnnouncements for accessibility\n- Error boundaries around localStorage operations with console warnings\n- Integration with existing router structure\n- TailwindCSS styling with proper admin interface design",
+      "testStrategy": "✅ COMPLETED: Comprehensive test suite with 22 passing tests covering:\n- Basic rendering and navigation (4 tests)\n- System information display (3 tests)\n- Confirmation dialog functionality (4 tests)\n- Reset operations and feedback (3 tests)\n- Accessibility features and ARIA compliance (7 tests)\n- Edge case handling including localStorage errors (1 test)\n\nAll functionality verified including:\n- Reset clears all guest check-in statuses across multiple events\n- localStorage properly cleared with error handling\n- Confirmation dialog prevents accidental resets\n- Accessibility announcements and focus management\n- Error scenarios handled gracefully",
+      "subtasks": []
+    },
+    {
+      "id": 11,
+      "title": "Add Offline Detection and User Feedback",
+      "description": "Implement offline detection with user feedback for future-proofing",
+      "details": "Create custom hook useOnlineStatus using navigator.onLine and online/offline event listeners. Display offline banner when navigator.onLine === false: 'Offline; changes will sync when online'. Style banner with warning colors and sticky positioning. Hide banner when back online. Ensure check-in functionality continues to work offline using localStorage. Add network status indicator in header.",
+      "testStrategy": "Test offline detection by disabling network connection. Verify banner appears/disappears correctly. Test check-in functionality works offline. Validate localStorage maintains data during offline periods.",
+      "priority": "low",
+      "dependencies": [
+        10
+      ],
+      "status": "in-progress",
+      "subtasks": []
+    },
+    {
+      "id": 12,
+      "title": "Performance Optimization and Testing",
+      "description": "Optimize bundle size, implement lazy loading, and ensure performance targets are met",
+      "details": "Implement React.lazy() for route-based code splitting. Optimize bundle size using Vite build analysis. Add React.memo() for expensive components. Implement virtual scrolling if guest lists exceed 50+ items. Configure Vite for optimal production builds. Add service worker for caching static assets. Ensure Lighthouse score ≥90 mobile. Test load time ≤3 seconds on 4G using WebPageTest.",
+      "testStrategy": "Run Lighthouse audits on mobile and desktop. Test load times on throttled 4G connection. Verify code splitting reduces initial bundle size. Test with large guest lists (100+ guests) for performance. Validate 80% Jest test coverage requirement.",
+      "priority": "medium",
+      "dependencies": [
+        11
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}
