@@ -5,13 +5,17 @@ import { useState, useEffect } from 'react';
  * @returns boolean indicating if the browser is online
  */
 export const useOnlineStatus = (): boolean => {
-  const [isOnline, setIsOnline] = useState<boolean>(
-    typeof navigator !== 'undefined' ? navigator.onLine : true
-  );
+  const [isOnline, setIsOnline] = useState<boolean>(() => {
+    // Initialize with current navigator state or default to true
+    if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+      return navigator.onLine;
+    }
+    return true;
+  });
 
   useEffect(() => {
     // Check if we're in a browser environment
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
       return;
     }
 

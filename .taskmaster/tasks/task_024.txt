@@ -1,0 +1,11 @@
+# Task ID: 24
+# Title: Finalize Documentation and Staff Training for MVP
+# Status: pending
+# Dependencies: 23
+# Priority: low
+# Description: Polish essential documentation and staff training materials for launch.
+# Details:
+Retain only core user documentation and quick reference guides. Remove advanced in-app help and onboarding flows. Ensure all docs reflect Sucia branding and dark theme screenshots. Prepare for Vercel deployment.
+
+# Test Strategy:
+Test documentation accuracy and staff training effectiveness. Verify branding and dark theme in materials.

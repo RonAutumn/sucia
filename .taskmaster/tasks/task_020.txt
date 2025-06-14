@@ -1,0 +1,11 @@
+# Task ID: 20
+# Title: Finalize Performance Optimization and Caching for Vercel
+# Status: pending
+# Dependencies: 19
+# Priority: medium
+# Description: Polish performance and caching for Vercel deployment, focusing on essentials.
+# Details:
+Retain React Query caching and basic code splitting. Remove advanced virtual scrolling and image optimization. Ensure database queries are efficient for MVP scale. Integrate Sucia branding and dark theme in all performance-related UI. Test on Vercel preview/production.
+
+# Test Strategy:
+Measure Core Web Vitals, test caching, and verify performance on Vercel. Check branding and dark theme in performance UI.

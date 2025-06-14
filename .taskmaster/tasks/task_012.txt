@@ -1,11 +1,67 @@
 # Task ID: 12
-# Title: Performance Optimization and Testing
-# Status: pending
+# Title: Implement Uno Game Engine Core Logic
+# Status: done
 # Dependencies: 11
-# Priority: medium
-# Description: Optimize bundle size, implement lazy loading, and ensure performance targets are met
+# Priority: high
+# Description: Build the core Uno game engine for tracking live physical Uno games with digital state management, rule validation, and real-time assistance
 # Details:
-Implement React.lazy() for route-based code splitting. Optimize bundle size using Vite build analysis. Add React.memo() for expensive components. Implement virtual scrolling if guest lists exceed 50+ items. Configure Vite for optimal production builds. Add service worker for caching static assets. Ensure Lighthouse score ≥90 mobile. Test load time ≤3 seconds on 4G using WebPageTest.
+Create Uno card definitions with colors (Red, Blue, Green, Yellow) and types (Number 0-9, Skip, Reverse, Draw Two, Wild, Wild Draw Four) that can be mapped to physical cards. Implement game initialization with virtual deck tracking that mirrors physical deck state. Build turn management system with player rotation and special card effects for physical game assistance. Create card validation logic for legal moves and game rule enforcement that works with card input from physical gameplay. Implement card input mechanisms supporting QR codes, manual entry, and card scanning. Build game state synchronization between physical cards and digital tracking. Add player hand tracking that maintains privacy while providing rule assistance. Implement win condition detection and scoring system for physical game completion. Add game state serialization for database storage and real-time synchronization across devices.
 
 # Test Strategy:
-Run Lighthouse audits on mobile and desktop. Test load times on throttled 4G connection. Verify code splitting reduces initial bundle size. Test with large guest lists (100+ guests) for performance. Validate 80% Jest test coverage requirement.
+Test card input mechanisms (QR scanning, manual entry), physical-digital state synchronization, turn progression with physical cards, special card effects validation, move validation for physical plays, player hand privacy, win condition detection, and real-time game assistance accuracy
+
+# Subtasks:
+## 12.1. Implement card input mechanisms [done]
+### Dependencies: None
+### Description: Build system to capture physical card plays through QR codes, manual entry, or card scanning
+### Details:
+
+
+## 12.2. Create physical-digital game state synchronization [done]
+### Dependencies: None
+### Description: Implement real-time sync between physical card state and digital tracking system
+### Details:
+
+
+## 12.3. Build Uno card definitions and mapping system [done]
+### Dependencies: None
+### Description: Create card models that can be mapped to physical cards with unique identifiers
+### Details:
+
+
+## 12.4. Implement turn management for physical gameplay [done]
+### Dependencies: None
+### Description: Build turn rotation system that works with physical card plays and provides real-time assistance
+### Details:
+
+
+## 12.5. Create card validation and rule enforcement [done]
+### Dependencies: None
+### Description: Implement legal move validation that assists players with physical card rule compliance
+### Details:
+
+
+## 12.6. Build player hand tracking with privacy [done]
+### Dependencies: None
+### Description: Track individual player hands digitally while maintaining card privacy from other players
+### Details:
+
+
+## 12.7. Implement special card effects handling [done]
+### Dependencies: None
+### Description: Handle Skip, Reverse, Draw Two, Wild, and Wild Draw Four effects in physical gameplay context
+### Details:
+
+
+## 12.8. Create win condition detection and scoring [done]
+### Dependencies: None
+### Description: Detect game completion and calculate scores for physical Uno games
+### Details:
+
+
+## 12.9. Add game state serialization and persistence [done]
+### Dependencies: None
+### Description: Implement saving and loading of physical game states for continuity and analysis
+### Details:
+
+

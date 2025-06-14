@@ -1,0 +1,11 @@
+# Task ID: 18
+# Title: Finalize Mobile-Responsive Design and PWA Essentials
+# Status: pending
+# Dependencies: 17
+# Priority: medium
+# Description: Polish mobile responsiveness and ensure PWA basics for MVP deployment.
+# Details:
+Ensure TailwindCSS mobile-first breakpoints are complete. Retain only essential touch-optimized controls. Ensure PWA manifest, icons, and offline basics are present. Remove advanced gesture and caching features. Integrate Sucia branding and dark theme throughout mobile UI. Test on Vercel preview/production.
+
+# Test Strategy:
+Test responsive behavior, PWA install, and branding on mobile devices. Verify dark theme and production readiness.

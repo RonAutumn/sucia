@@ -1,0 +1,111 @@
+# Task ID: 29
+# Title: Prepare Application for Vercel Deployment with Production Optimizations
+# Status: pending
+# Dependencies: 28
+# Priority: high
+# Description: Configure the application for production deployment on Vercel with optimized build settings, environment variables, routing configuration, and CDN asset optimization. Most production infrastructure is now complete - focus on resolving legacy component conflicts and final deployment validation.
+# Details:
+Prepare the Sucia application for production deployment on Vercel with comprehensive optimizations:
+
+**COMPLETED CONFIGURATIONS** ✅:
+- Vercel configuration (vercel.json) with proper Next.js routing, API handling, caching, and security headers
+- Production-optimized next.config.js with image optimization, bundle analysis, compression, and standalone output
+- Enhanced package.json with production build scripts and deployment commands
+- Comprehensive PRODUCTION_ENV_SETUP.md deployment guide
+- PWA-ready manifest.json with modern features and proper icons
+- PerformanceMonitor.tsx component with Core Web Vitals tracking
+- Production-optimized _document.tsx and _app.tsx with error boundaries and monitoring
+- ErrorBoundary.tsx component with production error handling
+- Automated production deployment script (scripts/deploy-production.js)
+
+**REMAINING TASKS**:
+
+1. **Legacy Component Cleanup** (CRITICAL):
+   - Remove or convert 15+ legacy React components using react-router-dom
+   - These components are incompatible with Next.js and causing build failures
+   - Identify which components are actually used vs. leftover from previous implementation
+   - Convert necessary components to use Next.js router patterns
+   - Remove unused legacy components entirely
+
+2. **Build Validation**:
+   - Resolve react-router-dom import conflicts
+   - Run successful 'npm run build' without errors
+   - Test production build locally with 'npm start'
+   - Validate all pages and API routes function correctly
+
+3. **Final Deployment Testing**:
+   - Test automated deployment script (scripts/deploy-production.js)
+   - Deploy to Vercel preview environment for validation
+   - Verify all production optimizations are working
+   - Confirm environment variables and database connections
+
+4. **Production Launch Preparation**:
+   - Configure custom domain and SSL in Vercel dashboard
+   - Set up production environment variables
+   - Enable error tracking and performance monitoring
+   - Prepare rollback procedures if needed
+
+# Test Strategy:
+1. **Legacy Component Resolution Testing**:
+   - Identify all files importing from 'react-router-dom'
+   - Test build after removing each legacy component
+   - Verify no functionality is broken by component removal
+   - Ensure all remaining routes use Next.js router patterns
+
+2. **Production Build Validation**:
+   - Run 'npm run build' to verify successful production build
+   - Test 'npm start' to ensure production server starts correctly
+   - Use 'npm run build:analyze' to verify bundle optimization
+   - Run 'npm run type-check' to ensure TypeScript compliance
+
+3. **Deployment Script Testing**:
+   - Execute 'node scripts/deploy-production.js' for automated validation
+   - Verify all pre-deployment checks pass successfully
+   - Test Lighthouse performance analysis integration
+   - Confirm deployment guidance and next steps are clear
+
+4. **Vercel Preview Environment Testing**:
+   - Deploy to Vercel preview environment using deployment script
+   - Verify all production optimizations are active
+   - Test Core Web Vitals and performance monitoring
+   - Validate error boundaries and error tracking functionality
+   - Confirm PWA features and manifest configuration
+
+5. **Production Readiness Verification**:
+   - Run comprehensive Lighthouse audit (target 90+ scores)
+   - Test all interactive features in production environment
+   - Verify database connections and API functionality
+   - Test error handling and recovery procedures
+   - Confirm monitoring and analytics are properly configured
+
+# Subtasks:
+## 29-1. Clean up legacy React components using react-router-dom [pending]
+### Dependencies: None
+### Description: Identify and remove or convert legacy React components that are using react-router-dom imports, which are incompatible with Next.js and causing build failures
+### Details:
+
+
+## 29-2. Validate production build success [pending]
+### Dependencies: None
+### Description: Ensure the application builds successfully for production after legacy component cleanup, with all optimizations working correctly
+### Details:
+
+
+## 29-3. Test automated deployment script [pending]
+### Dependencies: None
+### Description: Execute and validate the production deployment script (scripts/deploy-production.js) to ensure all automated checks and deployment guidance work correctly
+### Details:
+
+
+## 29-4. Deploy to Vercel preview environment [pending]
+### Dependencies: None
+### Description: Deploy the application to Vercel preview environment for final validation of all production configurations and optimizations
+### Details:
+
+
+## 29-5. Configure production environment variables [pending]
+### Dependencies: None
+### Description: Set up all required environment variables in Vercel dashboard for production deployment, including database connections and API keys
+### Details:
+
+

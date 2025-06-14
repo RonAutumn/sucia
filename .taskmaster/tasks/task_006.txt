@@ -1,67 +1,79 @@
 # Task ID: 6
-# Title: Add Live Search Functionality with Debouncing
+# Title: Build Main Control Hub Dashboard Layout
 # Status: done
 # Dependencies: 5
-# Priority: medium
-# Description: Live search functionality with 150ms debouncing has been successfully implemented and is fully operational in the GuestList component
+# Priority: high
+# Description: Create the central dashboard with responsive layout, navigation, and real-time metrics display
 # Details:
-✅ COMPLETED: Search functionality fully implemented with all requirements met:
-
-• Sticky search bar with `sticky top-0 z-10` TailwindCSS positioning
-• 150ms debounce using setTimeout with exact timing
-• 3+ character filtering activation threshold
-• Case-insensitive substring matching on guest names using .toLowerCase().includes()
-• Clear functionality with X button and clearSearch() function
-• Component state management with searchTerm and debouncedSearchTerm
-• Real-time guest list filtering with <200ms update performance
-• Accessibility features with ARIA labels and descriptions
-• Dynamic feedback showing character count and search instructions
-• Responsive design integration with existing table/card layout
-• Comprehensive test coverage for all search behaviors
+Implement main dashboard component with CSS Grid layout for responsive design. Create navigation sidebar with React Router links to different sections. Build metrics cards showing active games, queue lengths, and user counts using real-time Supabase subscriptions. Implement system status indicators with color-coded health checks. Add notification center with toast notifications using react-hot-toast@^2.4.0. Use TailwindCSS utilities for responsive breakpoints and dark mode support.
 
 # Test Strategy:
-✅ COMPLETED: All test requirements satisfied:
-• Search filters correctly with 3+ characters - verified
-• Debounce timing (150ms delay) - implemented and tested
-• Search performance <200ms requirement - meets specification
-• Case-insensitive matching - validated
-• Clear functionality - working properly
-• Accessibility and user feedback - comprehensive coverage
+Test responsive behavior across different screen sizes, verify real-time metrics update correctly, and ensure navigation works smoothly between sections
 
 # Subtasks:
-## 6.1. undefined [completed]
+## 6.1. Create ControlHubDashboard.tsx component [completed]
 ### Dependencies: None
-### Description: Implement sticky search bar with TailwindCSS positioning
+### Description: Build main comprehensive dashboard component with CSS Grid layout
 ### Details:
-Added sticky top-0 z-10 classes with shadow and border styling for visual separation
+Implemented responsive 12-column grid system with TailwindCSS breakpoints and dark mode support
 
-## 6.2. undefined [completed]
+## 6.2. Enhance useDashboardMetrics.ts hook [completed]
 ### Dependencies: None
-### Description: Create debounced search with 150ms delay using setTimeout
+### Description: Create real-time metrics hook with Supabase integration
 ### Details:
-Implemented exact 150ms debounce timing with proper cleanup on component unmount
+Built hook with 5-second interval updates, demo mode support, and proper error handling
 
-## 6.3. undefined [completed]
+## 6.3. Update pages/index.tsx integration [completed]
 ### Dependencies: None
-### Description: Add 3+ character filtering threshold and case-insensitive matching
+### Description: Simplify main page to use new dashboard component
 ### Details:
-Search activates only when debouncedSearchTerm.length >= 3, uses toLowerCase().includes() for matching
+Integrated with existing DashboardLayout and Next.js routing system
 
-## 6.4. undefined [completed]
+## 6.4. Implement real-time metrics display [completed]
 ### Dependencies: None
-### Description: Implement clear search functionality with X button
+### Description: Build live updating dashboard with active games, queue lengths, and user counts
 ### Details:
-Added clearSearch() function with SVG icon button that appears when text is entered
+Created metrics cards with real-time Supabase subscriptions and visual indicators
 
-## 6.5. undefined [completed]
+## 6.5. Build system status indicators [completed]
 ### Dependencies: None
-### Description: Add accessibility features and user feedback
+### Description: Implement color-coded health checks for system components
 ### Details:
-Implemented ARIA labels, descriptions, character count display, and search instructions
+Added database, realtime, and services status monitoring with visual feedback
 
-## 6.6. undefined [completed]
+## 6.6. Add notification center with toast notifications [completed]
 ### Dependencies: None
-### Description: Integrate with responsive table/card layout and test performance
+### Description: Implement notification system using react-hot-toast@^2.5.2
 ### Details:
-Search integrates seamlessly with existing layout, meets <200ms update requirement
+Built notification center with unread badges and toast notifications for user feedback
+
+## 6.7. Implement network status monitoring [completed]
+### Dependencies: None
+### Description: Add online/offline detection with visual indicators
+### Details:
+Built network status monitoring with connection state feedback
+
+## 6.8. Create performance monitoring dashboard [completed]
+### Dependencies: None
+### Description: Add CPU, memory, and response time indicators with progress bars
+### Details:
+Implemented performance metrics with visual progress indicators
+
+## 6.9. Build quick actions grid [completed]
+### Dependencies: None
+### Description: Create navigation shortcuts to different platform sections
+### Details:
+Added quick action buttons for easy navigation throughout the platform
+
+## 6.10. Implement recent activity feed [completed]
+### Dependencies: None
+### Description: Create real-time activity log with color-coded event types
+### Details:
+Built activity feed with real-time updates and visual event categorization
+
+## 6.11. Verify responsive testing and functionality [completed]
+### Dependencies: None
+### Description: Complete testing across screen sizes and verify all interactive elements
+### Details:
+Tested responsive behavior, real-time updates, navigation, and system status functionality
 

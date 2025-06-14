@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Simplify Physical Table Management for MVP
+# Status: pending
+# Dependencies: 14
+# Priority: medium
+# Description: Retain only essential table/room management and player assignment features for MVP.
+# Details:
+Provide a minimal table management interface for staff to create/manage tables and assign players. Remove advanced status tracking and staff tools. Ensure Sucia branding and dark theme are present. Prepare for Vercel deployment by cleaning up code and UI.
+
+# Test Strategy:
+Test table creation, player assignment, and branding. Verify dark theme and production readiness.

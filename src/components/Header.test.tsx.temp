@@ -1,0 +1,220 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import Header from './Header';
+
+// Mock useNavigate
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+  useLocation: () => ({ pathname: '/event/1' })
+}));
+
+const renderHeader = (props = {}) => {
+  return render(
+    <BrowserRouter>
+      <Header {...props} />
+    </BrowserRouter>
+  );
+};
+
+describe('Header', () => {
+  beforeEach(() => {
+    mockNavigate.mockClear();
+  });
+
+  describe('Logo rendering', () => {
+    it('renders the Sucia logo with correct alt text', () => {
+      renderHeader();
+      const logo = screen.getByAltText('Sucia logo');
+      expect(logo).toBeInTheDocument();
+      expect(logo).toHaveAttribute('src', '/sucia-logo.png');
+    });
+
+    it('renders the company name text on larger screens', () => {
+      renderHeader();
+      const companyName = screen.getByText('Sucia NYC');
+      expect(companyName).toBeInTheDocument();
+      expect(companyName).toHaveClass('hidden', 'sm:block');
+    });
+
+    it('applies correct styling constraints to logo', () => {
+      renderHeader();
+      const logo = screen.getByAltText('Sucia logo');
+      expect(logo).toHaveClass('h-12', 'w-auto', 'max-h-12', 'object-contain');
+      expect(logo).toHaveStyle({ maxHeight: '48px' });
+    });
+
+    it('has eager loading and high fetch priority for performance', () => {
+      renderHeader();
+      const logo = screen.getByAltText('Sucia logo');
+      expect(logo).toHaveAttribute('loading', 'eager');
+      expect(logo).toHaveAttribute('decoding', 'async');
+      expect(logo).toHaveAttribute('fetchpriority', 'high');
+    });
+  });
+
+  describe('Navigation behavior', () => {
+    it('shows back button when not on home page', () => {
+      renderHeader();
+      const backButton = screen.getByLabelText('Back to events');
+      expect(backButton).toBeInTheDocument();
+    });
+
+    it('navigates to home when back button is clicked', () => {
+      renderHeader();
+      const backButton = screen.getByLabelText('Back to events');
+      fireEvent.click(backButton);
+      expect(mockNavigate).toHaveBeenCalledWith('/');
+    });
+
+    it('makes logo clickable when not on home page', () => {
+      renderHeader();
+      const logoContainer = screen.getByLabelText('Navigate to home page');
+      expect(logoContainer).toBeInTheDocument();
+      expect(logoContainer).toHaveAttribute('tabIndex', '0');
+      expect(logoContainer).toHaveAttribute('role', 'button');
+    });
+
+    it('navigates to home when logo is clicked', () => {
+      renderHeader();
+      const logoContainer = screen.getByLabelText('Navigate to home page');
+      fireEvent.click(logoContainer);
+      expect(mockNavigate).toHaveBeenCalledWith('/');
+    });
+
+    it('supports keyboard navigation for logo', () => {
+      renderHeader();
+      const logoContainer = screen.getByLabelText('Navigate to home page');
+      
+      // Test Enter key
+      fireEvent.keyDown(logoContainer, { key: 'Enter' });
+      expect(mockNavigate).toHaveBeenCalledWith('/');
+      
+      mockNavigate.mockClear();
+      
+      // Test Space key
+      fireEvent.keyDown(logoContainer, { key: ' ' });
+      expect(mockNavigate).toHaveBeenCalledWith('/');
+    });
+  });
+
+  describe('Home page behavior', () => {
+    it('does not make logo clickable on home page', () => {
+      // Mock home page location
+      const mockUseLocation = jest.fn().mockReturnValue({ pathname: '/' });
+      jest.doMock('react-router-dom', () => ({
+        ...jest.requireActual('react-router-dom'),
+        useNavigate: () => mockNavigate,
+        useLocation: mockUseLocation
+      }));
+      
+      renderHeader();
+      
+      const logoContainer = screen.queryByLabelText('Navigate to home page');
+      expect(logoContainer).not.toBeInTheDocument();
+      
+      // Logo should still be visible but not interactive
+      const logo = screen.getByAltText('Sucia logo');
+      expect(logo).toBeInTheDocument();
+    });
+
+    it('does not show back button on home page', () => {
+      // Mock home page location
+      const mockUseLocation = jest.fn().mockReturnValue({ pathname: '/' });
+      jest.doMock('react-router-dom', () => ({
+        ...jest.requireActual('react-router-dom'),
+        useNavigate: () => mockNavigate,
+        useLocation: mockUseLocation
+      }));
+      
+      renderHeader();
+      
+      const backButton = screen.queryByLabelText('Back to events');
+      expect(backButton).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has proper header semantics', () => {
+      renderHeader();
+      const header = screen.getByRole('banner');
+      expect(header).toBeInTheDocument();
+    });
+
+    it('has proper navigation semantics', () => {
+      renderHeader();
+      const nav = screen.getByRole('navigation');
+      expect(nav).toBeInTheDocument();
+    });
+
+    it('provides appropriate ARIA labels for interactive elements', () => {
+      renderHeader();
+      
+      const logoContainer = screen.getByLabelText('Navigate to home page');
+      expect(logoContainer).toBeInTheDocument();
+      
+      const backButton = screen.getByLabelText('Back to events');
+      expect(backButton).toBeInTheDocument();
+    });
+  });
+
+  describe('Responsive design', () => {
+    it('applies responsive classes for mobile logo', () => {
+      renderHeader();
+      const picture = screen.getByAltText('Sucia logo').closest('picture');
+      expect(picture).toBeInTheDocument();
+      
+      // Check that mobile source is present
+      const mobileSource = picture?.querySelector('source[media="(max-width: 767px)"]');
+      expect(mobileSource).toBeInTheDocument();
+      expect(mobileSource).toHaveAttribute('srcset', '/sucia-logo-small.png');
+    });
+
+    it('hides company name on small screens', () => {
+      renderHeader();
+      const companyName = screen.getByText('Sucia NYC');
+      expect(companyName).toHaveClass('hidden', 'sm:block');
+    });
+
+    it('hides back button text on small screens', () => {
+      renderHeader();
+      const backButtonText = screen.getByText('Events');
+      expect(backButtonText).toHaveClass('hidden', 'sm:inline');
+    });
+  });
+
+  describe('Performance optimizations', () => {
+    it('implements picture element with WebP fallback', () => {
+      renderHeader();
+      const picture = screen.getByAltText('Sucia logo').closest('picture');
+      expect(picture).toBeInTheDocument();
+      
+      // Check WebP source
+      const webpSource = picture?.querySelector('source[type="image/webp"]');
+      expect(webpSource).toBeInTheDocument();
+      expect(webpSource).toHaveAttribute('srcset', '/sucia-logo.webp');
+      
+      // Check PNG fallback
+      const pngSource = picture?.querySelector('source[type="image/png"]');
+      expect(pngSource).toBeInTheDocument();
+      expect(pngSource).toHaveAttribute('srcset', '/sucia-logo.png');
+    });
+  });
+
+  describe('Custom styling', () => {
+    it('accepts and applies custom className', () => {
+      const customClass = 'custom-header-class';
+      renderHeader({ className: customClass });
+      
+      const header = screen.getByRole('banner');
+      expect(header).toHaveClass(customClass);
+    });
+
+    it('applies default styling classes', () => {
+      renderHeader();
+      const header = screen.getByRole('banner');
+      expect(header).toHaveClass('bg-white', 'shadow-md', 'border-b', 'border-gray-200', 'sticky', 'top-0', 'z-30');
+    });
+  });
+}); 

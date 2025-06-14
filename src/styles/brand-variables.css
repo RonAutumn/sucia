@@ -1,0 +1,197 @@
+/* Brand Color CSS Custom Properties */
+/* Sucia NYC Official Brand Colors - Based on queer nightlife aesthetic and decolonial design principles */
+
+:root {
+  /* Primary Brand Colors - Electric & Vibrant */
+  --color-primary: #ec4899; /* Bright electric magenta/fuchsia - main brand */
+  --color-primary-50: #fdf2f8;
+  --color-primary-100: #fce7f3;
+  --color-primary-200: #fbcfe8;
+  --color-primary-300: #f9a8d4;
+  --color-primary-400: #f472b6;
+  --color-primary-500: #ec4899; /* Primary */
+  --color-primary-600: #be185d;
+  --color-primary-700: #9d174d;
+  --color-primary-800: #831843;
+  --color-primary-900: #701a75;
+
+  /* Secondary - Deep Blue/Navy (overlays) */
+  --color-secondary: #1e3a8a; /* Deep blue matching the image */
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #3b82f6;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #1d4ed8;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a; /* Secondary */
+
+  /* Accent Colors - Neon Green & Coral */
+  --color-accent: #a3e635; /* Electric lime green - for buttons/CTAs */
+  --color-accent-50: #f7fee7;
+  --color-accent-100: #ecfccb;
+  --color-accent-200: #d9f99d;
+  --color-accent-300: #bef264;
+  --color-accent-400: #a3e635;
+  --color-accent-500: #a3e635; /* Accent lime */
+  --color-accent-600: #65a30d;
+  --color-accent-700: #4d7c0f;
+  --color-accent-800: #365314;
+  --color-accent-900: #1a2e05;
+
+  /* Highlight - Coral/Orange */
+  --color-highlight: #f97316; /* Coral orange accent */
+  --color-highlight-50: #fff7ed;
+  --color-highlight-100: #ffedd5;
+  --color-highlight-200: #fed7aa;
+  --color-highlight-300: #fdba74;
+  --color-highlight-400: #fb923c;
+  --color-highlight-500: #f97316; /* Highlight coral */
+  --color-highlight-600: #ea580c;
+  --color-highlight-700: #c2410c;
+  --color-highlight-800: #9a3412;
+  --color-highlight-900: #7c2d12;
+
+  /* Neutrals - For text and backgrounds */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+
+  /* Dark mode - Underground club aesthetic */
+  --color-dark-bg: #0a0a0a; /* Deep black */
+  --color-dark-surface: #1a1a1a;
+  --color-dark-border: #262626;
+  --color-dark-text: #fafafa;
+  --color-dark-text-muted: #a3a3a3;
+
+  /* Success/Error states with brand alignment */
+  --color-success: #22c55e; /* Neon green variant */
+  --color-warning: #f59e0b; /* Amber warning */
+  --color-error: #ef4444; /* Red error */
+  --color-info: #06b6d4; /* Cyan info */
+
+  /* Background Variants */
+  --bg-primary: var(--color-primary);
+  --bg-secondary: var(--color-secondary);
+  --bg-accent: var(--color-accent);
+  --bg-highlight: var(--color-highlight);
+  --bg-dark: var(--color-dark-bg);
+  --bg-surface: var(--color-neutral-50);
+
+  /* Text Colors */
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-700);
+  --text-muted: var(--color-neutral-500);
+  --text-inverse: var(--color-neutral-50);
+  --text-accent: var(--color-accent-700);
+
+  /* Border Colors */
+  --border-light: var(--color-neutral-200);
+  --border-medium: var(--color-neutral-300);
+  --border-dark: var(--color-neutral-700);
+  --border-accent: var(--color-accent);
+
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.25);
+  --shadow-accent: rgba(163, 230, 53, 0.25); /* Electric lime glow */
+  --shadow-primary: rgba(236, 72, 153, 0.25); /* Magenta glow */
+
+  /* Gradients - Sucia NYC signature looks */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-highlight) 100%);
+  --gradient-underground: linear-gradient(135deg, var(--color-dark-bg) 0%, var(--color-secondary-900) 100%);
+  --gradient-neon: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 50%, var(--color-highlight) 100%);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-surface: var(--color-dark-surface);
+    --text-primary: var(--color-dark-text);
+    --text-secondary: var(--color-dark-text-muted);
+    --border-light: var(--color-dark-border);
+    --border-medium: var(--color-neutral-600);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #d1477a; /* Slightly adjusted for better contrast */
+    --color-accent: #65a30d; /* Darker green for better readability */
+  }
+}
+
+/* Light mode explicit overrides (ensures consistency) */
+.light {
+  /* Primary Colors - Original light mode */
+  --color-primary-50: 239 246 255;   /* #eff6ff */
+  --color-primary-100: 219 234 254;  /* #dbeafe */
+  --color-primary-200: 191 219 254;  /* #bfdbfe */
+  --color-primary-300: 147 197 253;  /* #93c5fd */
+  --color-primary-400: 96 165 250;   /* #60a5fa */
+  --color-primary-500: 59 130 246;   /* #3b82f6 */
+  --color-primary-600: 37 99 235;    /* #2563eb */
+  --color-primary-700: 29 78 216;    /* #1d4ed8 */
+  --color-primary-800: 30 64 175;    /* #1e40af */
+  --color-primary-900: 30 58 138;    /* #1e3a8a */
+  --color-primary-950: 23 37 84;     /* #172554 */
+
+  /* All other colors remain as defined in :root */
+}
+
+/* Utility Classes for Dynamic Color Usage */
+.theme-bg-primary {
+  background-color: rgb(var(--color-primary-600));
+}
+
+.theme-text-primary {
+  color: rgb(var(--color-primary-600));
+}
+
+.theme-border-primary {
+  border-color: rgb(var(--color-primary-600));
+}
+
+.theme-bg-neutral {
+  background-color: rgb(var(--color-neutral-100));
+}
+
+.theme-text-neutral {
+  color: rgb(var(--color-neutral-800));
+}
+
+.theme-bg-success {
+  background-color: rgb(var(--color-success-500));
+}
+
+.theme-text-success {
+  color: rgb(var(--color-success-600));
+}
+
+.theme-bg-warning {
+  background-color: rgb(var(--color-warning-500));
+}
+
+.theme-text-warning {
+  color: rgb(var(--color-warning-600));
+}
+
+.theme-bg-error {
+  background-color: rgb(var(--color-error-500));
+}
+
+.theme-text-error {
+  color: rgb(var(--color-error-600));
+} 

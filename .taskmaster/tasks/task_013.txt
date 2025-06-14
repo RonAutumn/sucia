@@ -1,0 +1,11 @@
+# Task ID: 13
+# Title: Streamline Real-time Game Room and Queue System
+# Status: pending
+# Dependencies: 26
+# Priority: high
+# Description: Retain only essential real-time game room and turn queue features for MVP, removing complex game logic.
+# Details:
+Set up Supabase Realtime channels for basic game room management: player join/leave, simple roster display, and turn queue. Remove advanced bingo logic and focus on core multiplayer room functionality. Ensure all UI elements use Sucia branding and support dark theme. Prepare for Vercel deployment by cleaning up dev/test code.
+
+# Test Strategy:
+Test player joining/leaving rooms, turn queue ordering, and real-time roster updates across multiple browsers. Verify Sucia logo and dark theme in all room UI.

@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Finalize Admin Control Panel for MVP
+# Status: pending
+# Dependencies: 15
+# Priority: medium
+# Description: Polish admin interface for essential game, queue, and user management with Sucia branding and dark theme.
+# Details:
+Retain only core admin dashboard features: system overview, user management, and basic activity monitoring. Remove advanced tournament, moderation, and system health features. Integrate Sucia logo and ensure consistent branding. Complete dark theme support. Prepare for Vercel deployment by removing dev/test features.
+
+# Test Strategy:
+Test admin authentication, core management actions, and branding. Verify dark theme and production readiness.

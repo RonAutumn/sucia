@@ -1,0 +1,11 @@
+# Task ID: 22
+# Title: Finalize Security and Data Protection for MVP
+# Status: pending
+# Dependencies: 21
+# Priority: high
+# Description: Ensure essential security features and privacy controls for production deployment.
+# Details:
+Retain CSP headers, XSS protection, and input validation. Remove advanced rate limiting and audit logging. Ensure data encryption for sensitive info. Integrate Sucia branding and dark theme in privacy UI. Test on Vercel.
+
+# Test Strategy:
+Test CSP, input validation, and encryption. Verify branding and dark theme in privacy controls.

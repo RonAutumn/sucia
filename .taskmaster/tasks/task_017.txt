@@ -1,0 +1,11 @@
+# Task ID: 17
+# Title: Remove Hybrid Game Support System
+# Status: pending
+# Dependencies: 16
+# Priority: low
+# Description: Defer hybrid game features; focus on core MVP platform for deployment.
+# Details:
+Remove hybrid game framework, trivia, and physical material tracking from MVP scope. Ensure all code and UI related to hybrid games are cleaned up for Vercel deployment.
+
+# Test Strategy:
+Verify hybrid game features are not present in the deployed MVP.

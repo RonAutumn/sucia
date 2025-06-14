@@ -1,11 +1,43 @@
 # Task ID: 2
-# Title: Define TypeScript Interfaces and Mock Data
+# Title: Install and Configure Core Dependencies
 # Status: done
 # Dependencies: 1
 # Priority: high
-# Description: Create TypeScript interfaces for Event and Guest entities and generate mock data
+# Description: Install and configure essential libraries for the Next.js-based control hub platform, focusing on state management, server state, real-time functionality, and support for games and queue management features.
 # Details:
-Create /src/types/index.ts with interfaces: `Event { id: string, title: string, date: string, guestList: Guest[] }` and `Guest { id: string, name: string, checkedIn: boolean }`. Create /src/data/mockData.ts with 2+ events (Meetup, Sucia Read) containing 10-20 guests each. Ensure guest names are diverse and alphabetically sortable. Include realistic event dates and titles.
+Since TailwindCSS is already configured and Next.js uses file-based routing, React Router is not required. Install Zustand@^4.4.0 for client-side state management and @tanstack/react-query@^5.0.0 for server state management. Add the Supabase client for real-time and database functionality. Include any additional essential libraries needed for the control hub platform, as well as dependencies required for games and queue management features. Ensure all packages are compatible with Next.js architecture.
 
 # Test Strategy:
-Write unit tests to validate mock data structure matches TypeScript interfaces. Test that guest lists contain 10-20 entries and are properly typed.
+Verify all packages install without conflicts, Zustand and React Query integrate correctly with Next.js, Supabase client connects and handles real-time updates, and all dependencies for games and queue management are functional within the Next.js environment.
+
+# Subtasks:
+## 1. Install Zustand for Client-Side State Management [done]
+### Dependencies: None
+### Description: Install Zustand@^4.4.0 to manage client-side state in the Next.js application.
+### Details:
+Run `npm install zustand@^4.4.0` and verify installation in package.json.
+
+## 2. Install @tanstack/react-query for Server State Management [done]
+### Dependencies: None
+### Description: Install @tanstack/react-query@^5.0.0 to handle server state and data fetching.
+### Details:
+Run `npm install @tanstack/react-query@^5.0.0` and verify installation in package.json.
+
+## 3. Install Supabase Client for Real-Time and Database Features [done]
+### Dependencies: None
+### Description: Install the Supabase client library to enable real-time and database functionality.
+### Details:
+Run `npm install @supabase/supabase-js` and configure the client with project credentials.
+
+## 4. Install Additional Essential Libraries for Control Hub Features [done]
+### Dependencies: None
+### Description: Install any additional essential libraries required for the control hub platform.
+### Details:
+Identify and install libraries such as form handling (e.g., Formik, Yup), icons (e.g., Lucide), and API handling (e.g., Axios) as needed.
+
+## 5. Ensure Compatibility and Configure Dependencies for Games and Queue Management [done]
+### Dependencies: None
+### Description: Install and configure dependencies specifically required for games and queue management features.
+### Details:
+Identify and install any game logic or queue management libraries, ensuring compatibility with Next.js and existing dependencies.
+

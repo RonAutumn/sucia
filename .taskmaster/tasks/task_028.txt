@@ -1,0 +1,83 @@
+# Task ID: 28
+# Title: Implement Complete Dark Theme Support Across All Components and Pages
+# Status: done
+# Dependencies: 27
+# Priority: high
+# Description: Implement comprehensive dark theme functionality across the entire application including Tailwind CSS configuration, theme toggles, component support, persistence, and accessibility compliance.
+# Details:
+Implement a complete dark theme system for the Sucia application:
+
+1. **Tailwind CSS Dark Mode Configuration**:
+   - Update tailwind.config.js to enable 'class' strategy for dark mode
+   - Define comprehensive dark theme color palette extending existing brand colors
+   - Create dark variants for all custom utility classes and components
+   - Ensure proper contrast ratios meet WCAG AA standards
+
+2. **Theme Toggle Implementation**:
+   - Create ThemeToggle component with sun/moon icons and smooth transitions
+   - Implement useTheme hook for theme state management using Zustand
+   - Add theme toggle to header component integrated with Sucia branding
+   - Support system preference detection with prefers-color-scheme media query
+
+3. **Component Dark Theme Support**:
+   - Update all existing components to support dark:* Tailwind classes
+   - Ensure proper styling for dashboard metrics cards, navigation, forms, and modals
+   - Update window management components for consistent dark theme appearance
+   - Apply dark theme styling to game components, queue management, and service interfaces
+
+4. **Theme Persistence and State Management**:
+   - Implement localStorage persistence for user theme preference
+   - Add theme state to global Zustand store with proper TypeScript types
+   - Ensure theme preference syncs across multiple windows using existing window management system
+   - Handle SSR considerations with Next.js to prevent hydration mismatches
+
+5. **Accessibility and UX Enhancements**:
+   - Implement smooth CSS transitions for theme switching (200ms duration)
+   - Ensure all interactive elements maintain proper focus indicators in both themes
+   - Add ARIA labels and screen reader announcements for theme changes
+   - Test color contrast ratios for all text/background combinations
+   - Implement reduced motion preferences for users with motion sensitivity
+
+6. **Integration with Existing Systems**:
+   - Ensure dark theme works seamlessly with Supabase real-time updates
+   - Maintain consistent styling across all dashboard components and metrics displays
+   - Update notification toasts and modal overlays for dark theme compatibility
+
+# Test Strategy:
+**Comprehensive Dark Theme Testing Strategy**:
+
+1. **Visual Testing**:
+   - Test theme toggle functionality in header across all pages
+   - Verify smooth transitions between light and dark themes (no flashing)
+   - Ensure all components render correctly in both themes
+   - Test theme consistency across dashboard, games, queue management, and service pages
+
+2. **Persistence Testing**:
+   - Verify theme preference persists after browser refresh
+   - Test theme synchronization across multiple browser windows
+   - Confirm system preference detection works on first visit
+   - Test localStorage fallback and error handling
+
+3. **Accessibility Testing**:
+   - Use automated tools (axe-core) to verify WCAG AA compliance in both themes
+   - Test with screen readers to ensure theme changes are announced
+   - Verify keyboard navigation works properly in both themes
+   - Check focus indicators are visible and consistent
+   - Test with high contrast mode and reduced motion preferences
+
+4. **Cross-Browser and Device Testing**:
+   - Test theme functionality across Chrome, Firefox, Safari, and Edge
+   - Verify mobile responsiveness of theme toggle and dark theme styling
+   - Test on different screen sizes and orientations
+   - Ensure theme works properly with browser zoom levels
+
+5. **Integration Testing**:
+   - Test dark theme with real-time Supabase updates and notifications
+   - Verify theme consistency during window management operations
+   - Test theme behavior during navigation between different sections
+   - Ensure theme works correctly with form validation states and error messages
+
+6. **Performance Testing**:
+   - Measure theme switching performance and ensure sub-200ms transitions
+   - Verify no layout shifts occur during theme changes
+   - Test memory usage with frequent theme switching

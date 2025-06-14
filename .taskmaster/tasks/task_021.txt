@@ -1,0 +1,11 @@
+# Task ID: 21
+# Title: Finalize Error Handling and Logging for MVP
+# Status: pending
+# Dependencies: 20
+# Priority: medium
+# Description: Ensure robust error handling and logging for production deployment.
+# Details:
+Retain React Error Boundaries and centralized error logging (Sentry or similar). Remove advanced retry and reporting features. Ensure user-friendly error messages with Sucia branding and dark theme. Test error handling on Vercel.
+
+# Test Strategy:
+Test error boundaries, logging, and error UI on Vercel. Verify branding and dark theme.

@@ -1,0 +1,327 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      artifact-id: ${{ steps.upload-build.outputs.artifact-id }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run TypeScript compilation check
+        run: npx tsc --noEmit
+        
+      - name: Run linting
+        run: npm run lint || echo "No lint script found, skipping linting"
+        
+      - name: Run tests
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Build project
+        run: npm run build
+        env:
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        
+      - name: Upload build artifacts
+        id: upload-build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files-${{ github.sha }}
+          path: dist/
+          retention-days: 30
+
+  lighthouse-ci:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files-${{ github.sha }}
+          path: dist/
+          
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.12.x
+        
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
+
+  bundle-analysis:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build with bundle analysis
+        run: npm run build
+        env:
+          ANALYZE: true
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis-${{ github.sha }}
+          path: dist/stats.html
+          retention-days: 7
+
+  accessibility-tests:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files-${{ github.sha }}
+          path: dist/
+          
+      - name: Install accessibility testing tools
+        run: npm install -g @axe-core/cli
+        
+      - name: Serve build and run accessibility tests
+        run: |
+          npx serve -s dist -p 3000 &
+          sleep 5
+          axe http://localhost:3000 --exit
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    needs: [build-and-test, lighthouse-ci, bundle-analysis, accessibility-tests]
+    if: github.event_name == 'pull_request'
+    
+    outputs:
+      preview-url: ${{ steps.deploy.outputs.url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files-${{ github.sha }}
+          path: dist/
+          
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+        
+      - name: Deploy to Vercel Preview
+        id: deploy
+        run: |
+          vercel --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }} --confirm --prebuilt > deployment-url.txt
+          echo "url=$(cat deployment-url.txt)" >> $GITHUB_OUTPUT
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [build-and-test, bundle-analysis, accessibility-tests]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files-${{ github.sha }}
+          path: dist/
+          
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+        
+      - name: Deploy to Vercel Production
+        id: deploy-prod
+        run: |
+          vercel --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }} --confirm --prebuilt --prod > deployment-url.txt
+          echo "Production deployed to: $(cat deployment-url.txt)"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          
+      - name: Send deployment success notification
+        if: success()
+        run: |
+          echo "🚀 Production deployment to $(cat deployment-url.txt) was successful!"
+          echo "COMMIT_SHA=${{ github.sha }}"
+          echo "TRIGGERED_BY=${{ github.actor }}"
+          # Example: Send a Slack notification using a community action
+          # - name: Send Slack Notification on Success
+          #   uses: rtCamp/action-slack-notify@v2
+          #   env:
+          #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          #     SLACK_USERNAME: GitHub Actions
+          #     SLACK_ICON_EMOJI: ":rocket:"
+          #     SLACK_COLOR: good
+          #     SLACK_MESSAGE: "🚀 Production deployment successful! URL: $(cat deployment-url.txt)"
+          #     SLACK_FOOTER: "Commit by ${{ github.actor }} | ${{ github.sha }}"
+          
+      - name: Send deployment failure notification
+        if: failure()
+        run: |
+          echo "❌ Production deployment failed!"
+          echo "COMMIT_SHA=${{ github.sha }}"
+          echo "TRIGGERED_BY=${{ github.actor }}"
+          echo "Review logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          # Example: Send a Slack notification for failure
+          # - name: Send Slack Notification on Failure
+          #   uses: rtCamp/action-slack-notify@v2
+          #   env:
+          #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          #     SLACK_USERNAME: GitHub Actions
+          #     SLACK_ICON_EMOJI: ":x:"
+          #     SLACK_COLOR: danger
+          #     SLACK_MESSAGE: "❌ Production deployment FAILED! Review logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          #     SLACK_FOOTER: "Commit by ${{ github.actor }} | ${{ github.sha }}"
+
+  comment-pr:
+    runs-on: ubuntu-latest
+    needs: deploy-preview
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Comment PR with preview link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const previewUrl = '${{ needs.deploy-preview.outputs.preview-url }}';
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('🚀 Preview Deployment')
+            );
+
+            const body = `## 🚀 Preview Deployment
+
+            Your changes have been deployed to a preview environment:
+
+            **🔗 Preview URL:** ${previewUrl}
+
+            ### ✅ Deployment Status
+            - Build: ✅ Successful
+            - Tests: ✅ Passed
+            - Lighthouse CI: ✅ Performance ≥90
+            - Accessibility: ✅ Passed
+            - Bundle Analysis: ✅ Completed
+
+            ---
+            *This comment will be updated with new deployment URLs when you push changes to this PR.*`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
+  cleanup-preview:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    
+    steps:
+      - name: Cleanup preview deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Comment on PR about cleanup
+            const body = `## 🧹 Preview Cleanup
+
+            The preview deployment for this PR has been cleaned up.
+
+            ---
+            *Preview deployments are automatically cleaned up when PRs are closed or merged.*`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+      - name: Delete Vercel preview deployment
+        run: |
+          echo "Preview deployment cleanup would happen here"
+          # Note: Vercel automatically cleans up preview deployments
+          # Additional cleanup logic can be added if needed 

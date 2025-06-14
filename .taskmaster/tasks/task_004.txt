@@ -1,49 +1,43 @@
 # Task ID: 4
-# Title: Create Event Picker Component
+# Title: Create Database Schema and Tables
 # Status: done
 # Dependencies: 3
-# Priority: medium
-# Description: Build responsive card-based event selection interface with date badges
+# Priority: high
+# Description: Implement the complete database schema in Supabase with proper relationships and constraints
 # Details:
-✅ COMPLETED: EventPicker component has been successfully implemented with all required features. The component displays events as responsive cards using TailwindCSS grid layout (single column on mobile, 2 columns on tablet, 3+ columns on desktop). Each card shows event title, formatted date badge using Intl.DateTimeFormat, guest count preview, and location information. Includes onClick handlers for navigation to `/event/:id`, hover effects (scale transform and shadow transitions), and proper accessibility. Component is fully tested with 10 passing tests covering rendering, data display, navigation, responsive design, and styling.
+Execute SQL migrations to create all required tables: users, user_profiles, game_rooms, game_sessions, game_participants, service_types, service_queues, service_sessions, and notifications. Set up foreign key relationships and constraints. Create indexes for performance on frequently queried columns (user_id, session_id, queue positions). Implement database functions for queue position management and game state updates. Set up triggers for automatic timestamp updates and notification generation.
 
 # Test Strategy:
-✅ COMPLETED: Comprehensive test suite implemented with 10 passing tests covering: component rendering and title display, event data display from mock data, date formatting verification, guest count accuracy, location information display, navigation functionality with mocked router, responsive grid class verification, hover effect styling verification, event description display, and overall styling and layout verification. All tests validate responsive layout on different screen sizes, clicking cards navigates to correct event ID, mock data handling with 2+ events, and proper date formatting display.
+Verify all tables created successfully, foreign key constraints work properly, indexes improve query performance, and database functions execute without errors
 
 # Subtasks:
-## 4.1. Create responsive card-based layout [completed]
+## 1. Design and Document Schema Structure [done]
 ### Dependencies: None
-### Description: Implement TailwindCSS grid with responsive breakpoints
+### Description: Define the structure of all required tables, their columns, data types, and relationships.
 ### Details:
+Create a schema diagram and SQL file(s) for tables: users, user_profiles, game_rooms, game_sessions, game_participants, service_types, service_queues, service_sessions, and notifications. Specify primary keys, foreign keys, and constraints.
 
-
-## 4.2. Add date formatting with Intl.DateTimeFormat [completed]
-### Dependencies: None
-### Description: Format event dates using browser's internationalization API
+## 2. Implement SQL Migrations for Table Creation [done]
+### Dependencies: 4.1
+### Description: Execute SQL migrations to create all tables and establish relationships.
 ### Details:
+Run migration scripts in Supabase to create tables with defined relationships and constraints. Ensure foreign keys and constraints are properly set.
 
-
-## 4.3. Implement navigation handlers [completed]
-### Dependencies: None
-### Description: Add onClick handlers using React Router's useNavigate for event/:id routing
+## 3. Create Indexes for Performance Optimization [done]
+### Dependencies: 4.2
+### Description: Add indexes to frequently queried columns to improve query performance.
 ### Details:
+Create indexes on columns such as user_id, session_id, and queue positions in relevant tables.
 
-
-## 4.4. Style cards with hover effects [completed]
-### Dependencies: None
-### Description: Add hover:scale-105 and hover:shadow-lg transitions for interactive feedback
+## 4. Implement Database Functions and Triggers [done]
+### Dependencies: 4.2
+### Description: Write and deploy database functions and triggers for business logic.
 ### Details:
+Implement functions for queue position management and game state updates. Set up triggers for automatic timestamp updates and notification generation.
 
-
-## 4.5. Add guest count and location display [completed]
-### Dependencies: None
-### Description: Include guest count preview and location information with iconography
+## 5. Validate Schema and Test Data Integrity [done]
+### Dependencies: 4.2, 4.3, 4.4
+### Description: Test the complete schema with sample data and validate all constraints, relationships, and business logic.
 ### Details:
-
-
-## 4.6. Create comprehensive test suite [completed]
-### Dependencies: None
-### Description: Implement 10 tests covering all component functionality and edge cases
-### Details:
-
+Insert test data into all tables, verify foreign key constraints, triggers, and functions. Ensure notifications and timestamps are generated as expected.
 

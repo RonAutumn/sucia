@@ -48,15 +48,20 @@ describe('useOnlineStatus', () => {
     });
 
     test('defaults to true in server environment', () => {
+      const originalWindow = window;
       const originalNavigator = window.navigator;
-      delete (window as any).navigator;
+      
+      // Remove both window and navigator to simulate server environment
+      delete (global as any).window;
+      delete (global as any).navigator;
       
       const { result } = renderHook(() => useOnlineStatus());
       
       expect(result.current).toBe(true);
       
-      // Restore navigator
-      window.navigator = originalNavigator;
+      // Restore window and navigator
+      (global as any).window = originalWindow;
+      (global as any).navigator = originalNavigator;
     });
   });
 
@@ -81,14 +86,19 @@ describe('useOnlineStatus', () => {
 
     test('does not register listeners in server environment', () => {
       const originalWindow = window;
+      const originalNavigator = window.navigator;
+      
+      // Remove both window and navigator to simulate server environment
       delete (global as any).window;
+      delete (global as any).navigator;
       
       renderHook(() => useOnlineStatus());
       
       expect(mockAddEventListener).not.toHaveBeenCalled();
       
-      // Restore window
+      // Restore window and navigator
       (global as any).window = originalWindow;
+      (global as any).navigator = originalNavigator;
     });
   });
 
@@ -208,14 +218,18 @@ describe('useOnlineStatus', () => {
 
     test('handles missing window gracefully', () => {
       const originalWindow = window;
+      const originalNavigator = window.navigator;
+      
       delete (global as any).window;
+      delete (global as any).navigator;
       
       expect(() => {
         renderHook(() => useOnlineStatus());
       }).not.toThrow();
       
-      // Restore window
+      // Restore window and navigator
       (global as any).window = originalWindow;
+      (global as any).navigator = originalNavigator;
     });
   });
 }); 

@@ -1,0 +1,28 @@
+# Task ID: 26
+# Title: Retain Only Essential Ice Breaker Bingo Game Engine Features
+# Status: in-progress
+# Dependencies: 11
+# Priority: high
+# Description: Keep only core prompt library and bingo card generation for MVP; remove advanced game engine logic.
+# Details:
+Retain prompt library management and basic bingo card generation. Remove advanced progress tracking, win detection, and admin controls. Ensure all UI uses Sucia branding and supports dark theme. Prepare for Vercel deployment by cleaning up code and removing non-essential features.
+
+# Test Strategy:
+Test prompt management and card generation. Verify branding and dark theme. Ensure advanced features are not present.
+
+# Subtasks:
+## 1. Build Prompt Library Database Schema and Content Management System [done]
+### Dependencies: None
+### Description: Create the database schema for storing steamy/flirty prompts with categories and metadata, then build an admin interface for content management with moderation capabilities.
+### Details:
+Create Supabase tables: 'prompts' (id, content, category, difficulty_level, appropriateness_level, is_active, created_at, updated_at), 'prompt_categories' (id, name, description). Build React admin components: PromptManager, PromptForm, PromptList with CRUD operations. Implement content moderation flags and filtering. Add validation for prompt content length and appropriateness. Create API functions for prompt management with proper error handling.
+<info added on 2025-06-13T23:59:04.470Z>
+COMPLETED: Full prompt library system implementation finished with comprehensive database schema, API layer, and admin UI foundation. Database migration successfully applied via Supabase MCP with all 8 tables created and seeded with initial data (5 prompt categories, 25 steamy ice breaker prompts). TypeScript types defined, CRUD API service built, and PromptManager admin component started. Migration logged as create_icebreaker_bingo_schema version 20250613115826. System ready for bingo card generation implementation.
+</info added on 2025-06-13T23:59:04.470Z>
+
+## 2. Implement Dynamic Bingo Card Generation Algorithm [pending]
+### Dependencies: 26.1
+### Description: Build the core algorithm that generates unique 5x5 bingo cards for each player with proper randomization, difficulty distribution, and duplicate prevention.
+### Details:
+Create BingoCardGenerator class with methods: generateCard(), validateUniqueness(), distributeDifficulty(). Implement Fisher-Yates shuffle for randomization. Ensure center square is always 'FREE'. Create algorithm to balance difficulty levels across card (easy: 40%, medium: 40%, hard: 20%). Build card validation to prevent duplicate prompts. Create BingoCard React component with responsive grid layout. Implement card persistence in 'bingo_cards' table (id, game_id, player_id, card_data, created_at).
+

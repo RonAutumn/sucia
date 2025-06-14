@@ -23,7 +23,7 @@ const NetworkStatusIndicator: React.FC<NetworkStatusIndicatorProps> = ({
     lg: 'w-5 h-5',
   };
 
-  const iconColor = isOnline ? 'text-green-500' : 'text-red-500';
+  const iconColor = isOnline ? 'text-success-500' : 'text-error-500';
   const statusText = isOnline ? 'Online' : 'Offline';
   const ariaLabel = `Network status: ${statusText}`;
 

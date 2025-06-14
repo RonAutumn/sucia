@@ -1,0 +1,189 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Supabase MCP Database Management
+
+This rule covers using Supabase MCP (Model Context Protocol) tools to manage database schemas, apply migrations, and handle data operations for the SuciaMVP project.
+
+## **Core MCP Tools for Database Operations**
+
+### **Schema and Migration Management**
+- **`mcp_supabase_apply_migration`** - Apply SQL migration files to database
+- **`mcp_supabase_execute_sql`** - Execute raw SQL queries 
+- **`mcp_supabase_list_tables`** - View existing database tables
+- **`mcp_supabase_list_migrations`** - Check applied migrations
+
+### **Project Management** 
+- **`mcp_supabase_list_projects`** - View available Supabase projects
+- **`mcp_supabase_get_project`** - Get project details and status
+
+## **Migration Workflow Process**
+
+### **1. Create Migration Files**
+```sql
+-- Store in scripts/ directory with descriptive names
+-- Example: scripts/create_icebreaker_schema.sql
+CREATE TABLE IF NOT EXISTS prompts (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    -- ... other fields
+);
+```
+
+### **2. Apply Migration Using MCP**
+```typescript
+// Use mcp_supabase_apply_migration tool
+{
+  "name": "create_icebreaker_bingo_schema",
+  "query": "-- Full SQL migration content --",
+  "project_id": "your-project-id"
+}
+```
+
+### **3. Verify Migration Success**
+```typescript
+// Check tables were created
+mcp_supabase_list_tables -> verify new tables exist
+mcp_supabase_list_migrations -> verify migration logged
+```
+
+## **Best Practices for Schema Management**
+
+### **Migration File Structure**
+- **Location**: Store SQL files in [scripts/](mdc:scripts/) directory
+- **Naming**: Use descriptive names like `create_icebreaker_schema.sql`
+- **Content**: Include IF NOT EXISTS clauses for safety
+- **Dependencies**: Document table relationships and foreign keys
+
+### **SQL Migration Guidelines**
+```sql
+-- ✅ DO: Use safe migration patterns
+CREATE TABLE IF NOT EXISTS table_name (...);
+INSERT INTO table_name (...) ON CONFLICT DO NOTHING;
+CREATE INDEX IF NOT EXISTS idx_name ON table_name(column);
+
+-- ❌ DON'T: Use destructive operations without checks
+DROP TABLE table_name; -- Only if absolutely necessary
+ALTER TABLE table_name DROP COLUMN column_name; -- Data loss risk
+```
+
+### **MCP Tool Usage Patterns**
+
+#### **For New Features (like Ice Breaker Bingo)**
+1. **Design Schema** → Create SQL file in [scripts/](mdc:scripts/)
+2. **Apply Migration** → Use `mcp_supabase_apply_migration`
+3. **Verify Tables** → Use `mcp_supabase_list_tables`
+4. **Create Types** → Update [src/types/](mdc:src/types/) TypeScript definitions
+5. **Build API** → Create API functions in [src/utils/](mdc:src/utils/)
+
+#### **For Schema Updates**
+1. **Create New Migration** → Never modify existing migration files
+2. **Use Additive Changes** → ADD columns, don't DROP unless necessary
+3. **Test Migration** → Apply to development database first
+4. **Update Types** → Sync TypeScript types with schema changes
+
+## **Ice Breaker Bingo Specific Implementation**
+
+### **Required Tables for Ice Breaker Bingo**
+- **`prompt_categories`** - Organize prompts by theme
+- **`prompts`** - Store steamy ice breaker questions  
+- **`icebreaker_games`** - Game sessions with room codes
+- **`game_players`** - Players joined to games
+- **`bingo_cards`** - Individual player cards (5x5 grid)
+- **`player_progress`** - Track completed squares
+- **`game_winners`** - Record game winners
+
+### **Migration Application Command**
+```typescript
+// Apply the ice breaker schema using MCP
+mcp_supabase_apply_migration({
+  name: "create_icebreaker_bingo_schema",
+  project_id: "pqanzwebsfxczwttiidf", // From env.template
+  query: "-- Contents of scripts/create_icebreaker_schema.sql --"
+})
+```
+
+## **Development Workflow Integration**
+
+### **When Building New Game Features**
+1. **Create Schema First** → Design database tables
+2. **Apply via MCP** → Use migration tools to create tables
+3. **Generate Types** → Create TypeScript interfaces in [src/types/icebreaker.ts](mdc:src/types/icebreaker.ts)
+4. **Build API Layer** → Implement API functions in [src/utils/icebreaker-api.ts](mdc:src/utils/icebreaker-api.ts)
+5. **Create Components** → Build React components using the API
+
+### **Error Handling and Debugging**
+- **Check Migration Status** → Use `mcp_supabase_list_migrations`
+- **Verify Table Creation** → Use `mcp_supabase_list_tables` 
+- **Test Queries** → Use `mcp_supabase_execute_sql` for debugging
+- **Monitor Logs** → Use `mcp_supabase_get_logs` for error diagnosis
+
+## **Security and Performance Considerations**
+
+### **Row Level Security (RLS)**
+```sql
+-- Enable RLS on sensitive tables
+ALTER TABLE prompts ENABLE ROW LEVEL SECURITY;
+
+-- Create appropriate policies
+CREATE POLICY "Enable read access for all users" 
+ON prompts FOR SELECT USING (is_active = true);
+```
+
+### **Indexing Strategy**
+```sql
+-- Add indexes for frequently queried columns
+CREATE INDEX IF NOT EXISTS idx_prompts_category ON prompts(category_id);
+CREATE INDEX IF NOT EXISTS idx_games_status ON icebreaker_games(status);
+CREATE INDEX IF NOT EXISTS idx_players_game ON game_players(game_id);
+```
+
+## **Common MCP Commands for Database Management**
+
+### **Schema Discovery**
+- `mcp_supabase_list_projects` → View available projects
+- `mcp_supabase_list_tables` → Check existing tables
+- `mcp_supabase_list_migrations` → Review migration history
+
+### **Schema Modification**  
+- `mcp_supabase_apply_migration` → Apply new schema changes
+- `mcp_supabase_execute_sql` → Run individual SQL commands
+
+### **Data Operations**
+- Use TypeScript API functions in [src/utils/icebreaker-api.ts](mdc:src/utils/icebreaker-api.ts)
+- Leverage Supabase client for real-time subscriptions
+- Implement proper error handling and loading states
+
+## **File Organization for Database Features**
+
+```
+scripts/
+├── create_icebreaker_schema.sql     # Main schema migration
+├── seed_prompts.sql                 # Sample data insertion
+└── update_schema_v2.sql             # Future schema updates
+
+src/types/
+├── icebreaker.ts                    # TypeScript interfaces
+└── database.ts                      # General database types
+
+src/utils/
+├── icebreaker-api.ts               # Game-specific API functions
+├── supabase.ts                     # Client configuration
+└── database-helpers.ts             # Common database utilities
+```
+
+## **Migration Checklist**
+
+Before applying any schema migration:
+- [ ] Test SQL syntax in Supabase SQL editor
+- [ ] Verify foreign key relationships
+- [ ] Include appropriate indexes
+- [ ] Set up Row Level Security policies
+- [ ] Plan for data seeding if needed
+- [ ] Update TypeScript types after schema changes
+- [ ] Test API functions with new schema
+- [ ] Document schema changes in code comments
+
+Always use MCP tools for production database changes to ensure proper logging and version control of schema modifications.

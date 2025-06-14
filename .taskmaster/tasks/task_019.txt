@@ -1,0 +1,11 @@
+# Task ID: 19
+# Title: Finalize Accessibility Features for MVP
+# Status: pending
+# Dependencies: 18
+# Priority: medium
+# Description: Ensure essential accessibility support and polish for MVP deployment.
+# Details:
+Retain only core accessibility features: ARIA labels, keyboard navigation, and screen reader announcements for main flows. Ensure high contrast mode and skip links are present. Integrate Sucia branding and dark theme with accessibility in mind. Remove advanced color-blind and pattern alternatives for MVP.
+
+# Test Strategy:
+Test with screen readers, keyboard navigation, high contrast mode, and branding. Verify dark theme and accessibility basics.

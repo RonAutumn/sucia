@@ -1,0 +1,11 @@
+# Task ID: 14
+# Title: Polish Game User Interface for MVP
+# Status: pending
+# Dependencies: 13
+# Priority: medium
+# Description: Finalize simple, branded Ice Breaker Bingo interface with essential controls and Sucia branding.
+# Details:
+Retain only the basic 5x5 bingo card grid, player progress tracking, and core game controls. Remove advanced admin/game master features. Integrate Sucia logo in page headers and ensure consistent branding. Complete dark theme support across all components. Remove development artifacts and ensure a polished, production-ready UI for Vercel deployment.
+
+# Test Strategy:
+Test bingo card grid, square marking, player progress, and branding on desktop/mobile. Verify dark theme and absence of dev/test UI.

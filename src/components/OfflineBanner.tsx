@@ -20,14 +20,14 @@ const OfflineBanner: React.FC<OfflineBannerProps> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 bg-yellow-600 text-white px-4 py-3 shadow-lg transform transition-transform duration-300 ${className}`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-warning-600 text-white px-4 py-3 shadow-lg transform transition-transform duration-300 ${className}`}
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
     >
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <svg
-          className="h-5 w-5 text-yellow-200 mr-3 flex-shrink-0"
+          className="h-5 w-5 text-warning-200 mr-3 flex-shrink-0"
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -42,7 +42,7 @@ const OfflineBanner: React.FC<OfflineBannerProps> = ({
           {message}
         </span>
         <svg
-          className="h-5 w-5 text-yellow-200 ml-3 flex-shrink-0"
+          className="h-5 w-5 text-warning-200 ml-3 flex-shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
